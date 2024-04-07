@@ -5,7 +5,7 @@ pipeline{
 
         registryCredential = 'Hub' 
 
-        dockerImage = ''
+        //dockerImage = ''
     }
     
     tools{
@@ -51,14 +51,9 @@ pipeline{
             steps{
                 sh 'docker tag project2 project2/project2:$BUILD_NUMBER'
                 script{
-                    dockerImage = project2/project2:$BUILD_NUMBER
-            
-                    docker.withRegistry( '', registryCredential ) { 
-                        
-                    dockerImage.push() 
-                        
-                //sh 'docker login --username qbm810 --password '
-                //sh 'docker push project2/project2:$BUILD_NUMBER'
+                           
+                    docker.withRegistry( '', registryCredential ) {    
+                      sh 'docker push project2/project2:$BUILD_NUMBER'
             }
         }
         stage('Continuous Deployment'){
