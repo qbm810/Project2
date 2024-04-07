@@ -1,4 +1,11 @@
 pipeline{
+    environment { 
+
+        registry = "qbm810/project2" 
+
+        registryCredential = 'Hub' 
+    }
+    
     tools{
         maven 'mymaven'
     }
@@ -22,14 +29,21 @@ pipeline{
         }
         stage('Build Image'){
             steps{
-               sh 'docker build -t project2:$BUILD_NUMBER .'
+                sh 'docker build -t project2:$BUILD_NUMBER .'
             }
         }
         stage('Push image to dockerhub'){
             steps{
-                sh 'docker tag project2 edu123/project2:$BUILD_NUMBER'
-                sh 'docker login --username edu123 --password Edureka@123'
-                sh 'docker push edu123/project2:$BUILD_NUMBER'
+                //sh 'docker tag project2 project2/project2:$BUILD_NUMBER'
+                script{
+                    dockerImage = sh 'docker tag project2/project2:$BUILD_NUMBER .'
+            
+                    docker.withRegistry( '', registryCredential ) { 
+                        
+                    dockerImage.push() 
+                        
+                //sh 'docker login --username qbm810 --password '
+                //sh 'docker push project2/project2:$BUILD_NUMBER'
             }
         }
         stage('Continuous Deployment'){
