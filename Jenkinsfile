@@ -63,4 +63,5 @@ pipeline{
                 sh 'docker run -d -P project2:$BUILD_NUMBER'
             }
         }
+  }
 }
