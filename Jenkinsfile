@@ -1,7 +1,7 @@
 pipeline{
     environment { 
 
-        registry = "qbm810/project2" 
+        registry = "https://hub.docker.com/" 
 
         registryCredential = 'Hub' 
 
