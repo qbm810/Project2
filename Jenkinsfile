@@ -1,13 +1,5 @@
 pipeline{
-    environment { 
-
-        registry = "https://hub.docker.com/" 
-
-        registryCredential = 'Hub' 
-
-        //dockerImage = ''
-    }
-    
+      
     tools{
         maven 'mymaven'
     }
@@ -15,7 +7,13 @@ pipeline{
     
     agent any
     
-    
+     environment { 
+
+        registry = 'https://hub.docker.com/repository/docker/qbm810/project2/' 
+
+        registryCredential = 'Hub' 
+        
+    }
     stages{
         
         stage('Checkout Code'){
@@ -48,8 +46,7 @@ pipeline{
         
         
         stage('Push image to dockerhub'){
-            steps{
-                //sh 'docker tag qbm810/project2:$BUILD_NUMBER' 
+            steps{ 
                 script{
                            
                     docker.withRegistry( '', registryCredential ) {    
