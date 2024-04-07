@@ -7,13 +7,6 @@ pipeline{
     
     agent any
     
-     environment { 
-
-        registry = 'https://hub.docker.com/repository/docker/qbm810/project2/' 
-
-        registryCredential = 'Hub' 
-        
-    }
     stages{
         
         stage('Checkout Code'){
@@ -49,8 +42,10 @@ pipeline{
             steps{ 
                 script{
                            
-                    docker.withRegistry( '', registryCredential ) {    
+                    docker.withRegistry( 'https://hub.docker.com', 'Hub') {    
                       sh 'docker push qbm810/project2:$BUILD_NUMBER'
+                      docker.push('${BUILD_NUMBER}')
+                      docker.push('latest')
                       }
                     }
             }
