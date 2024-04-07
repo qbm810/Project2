@@ -54,6 +54,8 @@ pipeline{
                            
                     docker.withRegistry( '', registryCredential ) {    
                       sh 'docker push project2/project2:$BUILD_NUMBER'
+                      }
+                    }
             }
         }
         stage('Continuous Deployment'){
@@ -61,5 +63,4 @@ pipeline{
                 sh 'docker run -d -P project2:$BUILD_NUMBER'
             }
         }
-    }
 }
