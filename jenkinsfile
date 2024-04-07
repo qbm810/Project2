@@ -1,0 +1,43 @@
+pipeline{
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    agent any
+    
+    stages{
+        stage('Checkout Code'){
+            steps{
+                git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+            }
+        }
+        
+        stage('Build Code'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        
+        stage('Copy Build'){
+            steps{
+                sh 'cp /var/lib/jenkins/workspace/DockerJenkinsPipeline/target/addressbook.war .'
+            }
+        }
+        
+        stage('Build Image'){
+            steps{
+                sh 'docker build -t myimagetomcat:$BUILD_NUMBER .'
+            }
+        }
+        
+         stage('Continuous Deployment'){
+            steps{
+                sh 'docker run -d -P myimagetomcat:$BUILD_NUMBER'
+            }
+        }
+        
+        
+    }
+}
+
