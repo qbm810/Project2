@@ -17,7 +17,7 @@ pipeline{
         }
         stage('Copy Build'){
             steps{
-                sh 'cp /var/lib/jenkins/workspace/DockerJenkinsPipeline/target/addressbook.war .'
+                sh 'cp /var/lib/jenkins/workspace/Project2/target/addressbook.war .'
             }
         }
         stage('Build Image'){
