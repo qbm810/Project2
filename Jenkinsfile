@@ -49,7 +49,7 @@ pipeline{
         
         stage('Push image to dockerhub'){
             steps{
-                sh 'docker tag project2 project2/project2:$BUILD_NUMBER' 
+                //sh 'docker tag qbm810/project2:$BUILD_NUMBER' 
                 script{
                            
                     docker.withRegistry( '', registryCredential ) {    
