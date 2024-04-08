@@ -38,22 +38,20 @@ pipeline{
         }
         
         
-        stage('Push image to dockerhub'){
-            steps{ 
-                script{
-                           
-                    docker.withRegistry( 'https://hub.docker.com', 'Hub') {    
-                      sh 'docker push qbm810/project2:$BUILD_NUMBER'
-                      docker.push('${BUILD_NUMBER}')
-                      docker.push('latest')
-                      }
-                    }
-            }
-        }
         stage('Continuous Deployment'){
             steps{
                 sh 'docker run -d -P project2:$BUILD_NUMBER'
             }
         }
+         stage('Push image to dockerhub'){
+            steps{ 
+                script{
+                           
+                    docker.withRegistry( 'https://hub.docker.com', 'Hub') {    
+                      sh 'docker push qbm810/project2:$BUILD_NUMBER'
+                      }
+                    }
+            }
+        } 
   }
 }
