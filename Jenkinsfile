@@ -43,7 +43,7 @@ pipeline{
                 sh 'docker run -d -P project2:$BUILD_NUMBER'
             }
         }
-         stage('Push image to dockerhub'){
+        /* stage('Push image to dockerhub'){
             steps{ 
                 script{
                            
@@ -52,6 +52,6 @@ pipeline{
                       }
                     }
             }
-        } 
+        } */
   }
 }
